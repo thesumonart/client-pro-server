@@ -29,13 +29,20 @@ export const queryParser = {
       Math.max(1, query.limit ?? PAGINATION.defaultLimit),
     );
 
+    const sortBy = query.sortBy ?? defaultSortBy;
+    const direction: SortDirection = query.sortOrder === "asc" ? 1 : -1;
+
     return {
       page,
       limit,
       skip: (page - 1) * limit,
-      sort: {
-        [query.sortBy ?? defaultSortBy]: query.sortOrder === "asc" ? 1 : -1,
-      },
+      // `_id` is a monotonic tie-breaker. Without it, rows sharing a sort value
+      // (e.g. a bulk insertMany landing in the same millisecond) come back in an
+      // arbitrary order, so skip/limit pagination can repeat or drop records.
+      sort:
+        sortBy === "_id"
+          ? { _id: direction }
+          : { [sortBy]: direction, _id: direction },
     };
   },
 
