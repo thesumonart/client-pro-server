@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { activityRoutes } from "./activity.routes.ts";
 import { authRoutes } from "./auth.routes.ts";
+import { calendarEventRoutes } from "./calendar-event.routes.ts";
 import { customerRoutes } from "./customer.routes.ts";
 import { dealRoutes } from "./deal.routes.ts";
 import { leadRoutes } from "./lead.routes.ts";
@@ -24,6 +25,7 @@ const routeModules: RouteModule[] = [
   { path: "/leads", router: leadRoutes },
   { path: "/deals", router: dealRoutes },
   { path: "/tasks", router: taskRoutes },
+  { path: "/events", router: calendarEventRoutes },
 ];
 
 const router = Router();

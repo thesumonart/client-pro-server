@@ -44,6 +44,29 @@ export const TASK_WRITE_ROLES = [
   ...TASK_WRITE_OWN_ROLES,
 ] as const;
 
+/**
+ * Calendar events belong to whoever created them. Privileged roles manage the
+ * whole team calendar; everyone else manages their own entries. Viewer is
+ * read-only everywhere, so it is absent from both sets.
+ */
+export const EVENT_WRITE_ALL_ROLES = ["owner", "admin", "manager"] as const;
+export const EVENT_WRITE_OWN_ROLES = ["sales-rep", "support"] as const;
+export const EVENT_WRITE_ROLES = [
+  ...EVENT_WRITE_ALL_ROLES,
+  ...EVENT_WRITE_OWN_ROLES,
+] as const;
+
+export const EVENT_TYPES = [
+  "meeting",
+  "task",
+  "follow-up",
+  "deadline",
+  "call",
+] as const;
+
+/** The calendar chip palette has 5 entries (EVENT_CHIP in the frontend). */
+export const EVENT_COLOR_COUNT = 5;
+
 export const TASK_STATUSES = ["todo", "in-progress", "review", "done"] as const;
 
 export const TASK_PRIORITIES = ["low", "medium", "high", "urgent"] as const;
