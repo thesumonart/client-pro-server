@@ -5,6 +5,7 @@ import { calendarEventRoutes } from "./calendar-event.routes.ts";
 import { customerRoutes } from "./customer.routes.ts";
 import { dealRoutes } from "./deal.routes.ts";
 import { leadRoutes } from "./lead.routes.ts";
+import { noteRoutes } from "./note.routes.ts";
 import { taskRoutes } from "./task.routes.ts";
 import { teamMemberRoutes } from "./team-member.routes.ts";
 
@@ -26,6 +27,7 @@ const routeModules: RouteModule[] = [
   { path: "/deals", router: dealRoutes },
   { path: "/tasks", router: taskRoutes },
   { path: "/events", router: calendarEventRoutes },
+  { path: "/notes", router: noteRoutes },
 ];
 
 const router = Router();

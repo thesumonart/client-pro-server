@@ -74,6 +74,9 @@ export const TASK_PRIORITIES = ["low", "medium", "high", "urgent"] as const;
 /** Entity kinds a task's `relatedTo` pointer can target. */
 export const TASK_RELATED_TYPES = ["customer", "deal", "lead"] as const;
 
+/** Entity kinds a note can be attached to. Shares the task write policy. */
+export const NOTE_ENTITY_TYPES = ["customer", "deal", "lead"] as const;
+
 export const CUSTOMER_STATUSES = [
   "active",
   "inactive",
