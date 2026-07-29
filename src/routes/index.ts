@@ -2,8 +2,10 @@ import { Router } from "express";
 import { activityRoutes } from "./activity.routes.ts";
 import { authRoutes } from "./auth.routes.ts";
 import { calendarEventRoutes } from "./calendar-event.routes.ts";
+import { crmDocumentRoutes } from "./crm-document.routes.ts";
 import { customerRoutes } from "./customer.routes.ts";
 import { dealRoutes } from "./deal.routes.ts";
+import { folderRoutes } from "./folder.routes.ts";
 import { leadRoutes } from "./lead.routes.ts";
 import { noteRoutes } from "./note.routes.ts";
 import { taskRoutes } from "./task.routes.ts";
@@ -28,6 +30,8 @@ const routeModules: RouteModule[] = [
   { path: "/tasks", router: taskRoutes },
   { path: "/events", router: calendarEventRoutes },
   { path: "/notes", router: noteRoutes },
+  { path: "/folders", router: folderRoutes },
+  { path: "/documents", router: crmDocumentRoutes },
 ];
 
 const router = Router();

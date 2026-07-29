@@ -77,6 +77,52 @@ export const TASK_RELATED_TYPES = ["customer", "deal", "lead"] as const;
 /** Entity kinds a note can be attached to. Shares the task write policy. */
 export const NOTE_ENTITY_TYPES = ["customer", "deal", "lead"] as const;
 
+export const DOCUMENT_TYPES = [
+  "pdf",
+  "doc",
+  "sheet",
+  "image",
+  "slide",
+  "archive",
+  "other",
+] as const;
+
+/** Documents can only be filed against a customer or a deal. */
+export const DOCUMENT_RELATED_TYPES = ["customer", "deal"] as const;
+
+/** Maps a file extension to a DocumentType when the client omits one. */
+export const DOCUMENT_EXTENSION_MAP: Record<
+  string,
+  (typeof DOCUMENT_TYPES)[number]
+> = {
+  pdf: "pdf",
+  doc: "doc",
+  docx: "doc",
+  rtf: "doc",
+  txt: "doc",
+  md: "doc",
+  xls: "sheet",
+  xlsx: "sheet",
+  csv: "sheet",
+  png: "image",
+  jpg: "image",
+  jpeg: "image",
+  gif: "image",
+  svg: "image",
+  webp: "image",
+  ppt: "slide",
+  pptx: "slide",
+  key: "slide",
+  zip: "archive",
+  rar: "archive",
+  "7z": "archive",
+  tar: "archive",
+  gz: "archive",
+};
+
+/** The folder chip palette has 5 entries, like the other colour fields. */
+export const FOLDER_COLOR_COUNT = 5;
+
 export const CUSTOMER_STATUSES = [
   "active",
   "inactive",
