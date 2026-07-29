@@ -1,9 +1,22 @@
 import type { Server as HttpServer } from "node:http";
 import { Server as SocketIOServer } from "socket.io";
-import { env } from "./env.ts";
+import type {
+  ClientToServerEvents,
+  InterServerEvents,
+  ServerToClientEvents,
+  SocketData,
+} from "../types/socket.types.ts";
 import { ApiError } from "../utils/ApiError.ts";
+import { env } from "./env.ts";
 
-let io: SocketIOServer | null = null;
+export type AppSocketServer = SocketIOServer<
+  ClientToServerEvents,
+  ServerToClientEvents,
+  InterServerEvents,
+  SocketData
+>;
+
+let io: AppSocketServer | null = null;
 
 /** Personal room every authenticated socket joins, used for direct pushes. */
 const userRoom = (userId: string): string => `user:${userId}`;
@@ -13,14 +26,19 @@ const conversationRoom = (conversationId: string): string =>
 
 /**
  * Socket.io lifecycle. Handshake authentication and event handlers are
- * registered by the messaging/notification modules via `getIO()`.
+ * registered by socketService, which owns the chat/notification behaviour.
  */
 export const socketConfig = {
   userRoom,
   conversationRoom,
 
-  init: (httpServer: HttpServer): SocketIOServer => {
-    io = new SocketIOServer(httpServer, {
+  init: (httpServer: HttpServer): AppSocketServer => {
+    io = new SocketIOServer<
+      ClientToServerEvents,
+      ServerToClientEvents,
+      InterServerEvents,
+      SocketData
+    >(httpServer, {
       path: "/socket.io",
       cors: {
         origin: env.corsOrigins,
@@ -31,7 +49,7 @@ export const socketConfig = {
     return io;
   },
 
-  getIO: (): SocketIOServer => {
+  getIO: (): AppSocketServer => {
     if (!io) {
       throw ApiError.internal("Socket.io has not been initialised");
     }
@@ -39,17 +57,21 @@ export const socketConfig = {
   },
 
   /** Push an event to a single user across all of their open sockets. */
-  emitToUser: (userId: string, event: string, payload: unknown): void => {
-    io?.to(userRoom(userId)).emit(event, payload);
+  emitToUser: <E extends keyof ServerToClientEvents>(
+    userId: string,
+    event: E,
+    ...args: Parameters<ServerToClientEvents[E]>
+  ): void => {
+    io?.to(userRoom(userId)).emit(event, ...args);
   },
 
   /** Push an event to everyone currently in a conversation room. */
-  emitToConversation: (
+  emitToConversation: <E extends keyof ServerToClientEvents>(
     conversationId: string,
-    event: string,
-    payload: unknown,
+    event: E,
+    ...args: Parameters<ServerToClientEvents[E]>
   ): void => {
-    io?.to(conversationRoom(conversationId)).emit(event, payload);
+    io?.to(conversationRoom(conversationId)).emit(event, ...args);
   },
 
   close: async (): Promise<void> => {

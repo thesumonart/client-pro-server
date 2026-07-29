@@ -3,11 +3,13 @@ import { app } from "./app.ts";
 import { database } from "./config/db.ts";
 import { env } from "./config/env.ts";
 import { socketConfig } from "./config/socket.ts";
+import { socketService } from "./services/socket.service.ts";
 
 const httpServer = http.createServer(app);
 
-// Socket.io shares the same HTTP server as Express.
-socketConfig.init(httpServer);
+// Socket.io shares the same HTTP server as Express; the gateway then attaches
+// handshake authentication, room joins and the chat event handlers.
+socketService.register(socketConfig.init(httpServer));
 
 let shuttingDown = false;
 

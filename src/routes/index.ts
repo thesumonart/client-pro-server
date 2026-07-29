@@ -2,6 +2,7 @@ import { Router } from "express";
 import { activityRoutes } from "./activity.routes.ts";
 import { authRoutes } from "./auth.routes.ts";
 import { calendarEventRoutes } from "./calendar-event.routes.ts";
+import { conversationRoutes } from "./conversation.routes.ts";
 import { crmDocumentRoutes } from "./crm-document.routes.ts";
 import { customerRoutes } from "./customer.routes.ts";
 import { dealRoutes } from "./deal.routes.ts";
@@ -32,6 +33,7 @@ const routeModules: RouteModule[] = [
   { path: "/notes", router: noteRoutes },
   { path: "/folders", router: folderRoutes },
   { path: "/documents", router: crmDocumentRoutes },
+  { path: "/conversations", router: conversationRoutes },
 ];
 
 const router = Router();
