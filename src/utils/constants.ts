@@ -14,6 +14,28 @@ export const TEAM_STATUSES = ["active", "invited", "suspended"] as const;
 /** Roles allowed to manage team members and settings. */
 export const TEAM_ADMIN_ROLES = ["owner", "admin"] as const;
 
+/**
+ * CRM record access (customers / leads / deals / tasks).
+ * `WRITE_ALL` may mutate any record; `WRITE_OWN` only records assigned to them
+ * and always create records assigned to themselves. Everyone else is read-only.
+ */
+export const RECORD_WRITE_ALL_ROLES = ["owner", "admin", "manager"] as const;
+export const RECORD_WRITE_OWN_ROLES = ["sales-rep"] as const;
+
+/** Union used by route-level authorize() guards on CRM record mutations. */
+export const RECORD_WRITE_ROLES = [
+  ...RECORD_WRITE_ALL_ROLES,
+  ...RECORD_WRITE_OWN_ROLES,
+] as const;
+
+export const CUSTOMER_STATUSES = [
+  "active",
+  "inactive",
+  "lead",
+  "churned",
+  "prospect",
+] as const;
+
 /** The frontend avatar palette has 5 entries (AVATAR_COLORS in constants.ts). */
 export const AVATAR_COLOR_COUNT = 5;
 
