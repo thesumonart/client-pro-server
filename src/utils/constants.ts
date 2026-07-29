@@ -36,6 +36,26 @@ export const CUSTOMER_STATUSES = [
   "prospect",
 ] as const;
 
+export const LEAD_STAGES = [
+  "new",
+  "contacted",
+  "qualified",
+  "proposal",
+  "negotiation",
+  "won",
+  "lost",
+] as const;
+
+export const LEAD_SOURCES = [
+  "website",
+  "referral",
+  "social",
+  "email",
+  "event",
+  "cold-call",
+  "ads",
+] as const;
+
 /** The frontend avatar palette has 5 entries (AVATAR_COLORS in constants.ts). */
 export const AVATAR_COLOR_COUNT = 5;
 
