@@ -131,6 +131,42 @@ export const NOTIFICATION_CATEGORIES = [
   "message",
 ] as const;
 
+export const MONTH_LABELS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+
+/** Display names for lead sources, matching LEAD_SOURCE in the frontend. */
+export const LEAD_SOURCE_LABELS: Record<string, string> = {
+  website: "Website",
+  referral: "Referral",
+  social: "Social",
+  email: "Email",
+  event: "Event",
+  "cold-call": "Cold call",
+  ads: "Ads",
+};
+
+/** Stages shown on the pipeline chart — "lost" is deliberately excluded. */
+export const PIPELINE_STAGES = [
+  "new",
+  "contacted",
+  "qualified",
+  "proposal",
+  "negotiation",
+  "won",
+] as const;
+
 /** Collections the command palette searches, in the order it renders them. */
 export const SEARCH_TYPES = [
   "customer",
