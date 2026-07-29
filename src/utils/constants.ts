@@ -56,6 +56,34 @@ export const LEAD_SOURCES = [
   "ads",
 ] as const;
 
+export const DEAL_STAGES = [
+  "new",
+  "contacted",
+  "qualified",
+  "proposal",
+  "negotiation",
+  "won",
+  "lost",
+] as const;
+
+/**
+ * Win probability is derived from the stage, server-side, always. It is never
+ * read from the request body — a client could otherwise inflate the weighted
+ * pipeline figure the dashboard reports.
+ */
+export const DEAL_STAGE_PROBABILITY: Record<
+  (typeof DEAL_STAGES)[number],
+  number
+> = {
+  new: 10,
+  contacted: 25,
+  qualified: 45,
+  proposal: 60,
+  negotiation: 80,
+  won: 100,
+  lost: 0,
+};
+
 /** The frontend avatar palette has 5 entries (AVATAR_COLORS in constants.ts). */
 export const AVATAR_COLOR_COUNT = 5;
 
