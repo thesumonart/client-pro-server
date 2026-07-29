@@ -1,3 +1,5 @@
+import type { AuthUser } from "./auth.types.ts";
+
 /**
  * Express type augmentation.
  *
@@ -13,6 +15,9 @@ declare module "express-serve-static-core" {
       query?: unknown;
       params?: unknown;
     };
+
+    /** Set by authMiddleware.protect / optionalProtect. */
+    user?: AuthUser;
   }
 }
 

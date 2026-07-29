@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { authRoutes } from "./auth.routes.ts";
+import { teamMemberRoutes } from "./team-member.routes.ts";
 
 interface RouteModule {
   path: string;
@@ -10,7 +12,8 @@ interface RouteModule {
  * Modules append their entry as they are built.
  */
 const routeModules: RouteModule[] = [
-  // { path: "/auth", router: authRoutes },
+  { path: "/auth", router: authRoutes },
+  { path: "/team", router: teamMemberRoutes },
 ];
 
 const router = Router();

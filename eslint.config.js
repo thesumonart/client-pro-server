@@ -6,12 +6,21 @@ import prettier from "eslint-config-prettier";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "node_modules/**", "coverage/**", "eslint.config.js"],
+    ignores: [
+      "dist/**",
+      "node_modules/**",
+      "coverage/**",
+      "eslint.config.js",
+      "**/*.mjs",
+      "**/*.cjs",
+    ],
   },
   js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
   {
+    // Type-aware rules must be scoped to files covered by tsconfig.json —
+    // applying them project-wide crashes ESLint on any stray .js/.mjs file.
     files: ["**/*.ts"],
+    extends: [...tseslint.configs.recommendedTypeChecked],
     languageOptions: {
       parser: tseslint.parser,
       globals: {
