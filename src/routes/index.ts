@@ -4,6 +4,7 @@ import { authRoutes } from "./auth.routes.ts";
 import { customerRoutes } from "./customer.routes.ts";
 import { dealRoutes } from "./deal.routes.ts";
 import { leadRoutes } from "./lead.routes.ts";
+import { taskRoutes } from "./task.routes.ts";
 import { teamMemberRoutes } from "./team-member.routes.ts";
 
 interface RouteModule {
@@ -22,6 +23,7 @@ const routeModules: RouteModule[] = [
   { path: "/customers", router: customerRoutes },
   { path: "/leads", router: leadRoutes },
   { path: "/deals", router: dealRoutes },
+  { path: "/tasks", router: taskRoutes },
 ];
 
 const router = Router();

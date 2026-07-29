@@ -28,6 +28,29 @@ export const RECORD_WRITE_ROLES = [
   ...RECORD_WRITE_OWN_ROLES,
 ] as const;
 
+/**
+ * Tasks, notes and documents have a wider write set than customers/leads/deals:
+ * support is read-only on the sales pipeline but owns operational work.
+ */
+export const TASK_WRITE_ALL_ROLES = [
+  "owner",
+  "admin",
+  "manager",
+  "support",
+] as const;
+export const TASK_WRITE_OWN_ROLES = ["sales-rep"] as const;
+export const TASK_WRITE_ROLES = [
+  ...TASK_WRITE_ALL_ROLES,
+  ...TASK_WRITE_OWN_ROLES,
+] as const;
+
+export const TASK_STATUSES = ["todo", "in-progress", "review", "done"] as const;
+
+export const TASK_PRIORITIES = ["low", "medium", "high", "urgent"] as const;
+
+/** Entity kinds a task's `relatedTo` pointer can target. */
+export const TASK_RELATED_TYPES = ["customer", "deal", "lead"] as const;
+
 export const CUSTOMER_STATUSES = [
   "active",
   "inactive",
