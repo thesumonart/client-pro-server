@@ -123,6 +123,14 @@ export const DOCUMENT_EXTENSION_MAP: Record<
 /** The folder chip palette has 5 entries, like the other colour fields. */
 export const FOLDER_COLOR_COUNT = 5;
 
+export const NOTIFICATION_CATEGORIES = [
+  "mention",
+  "system",
+  "deal",
+  "task",
+  "message",
+] as const;
+
 export const CUSTOMER_STATUSES = [
   "active",
   "inactive",

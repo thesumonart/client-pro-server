@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { activityRoutes } from "./activity.routes.ts";
+import { notificationRoutes } from "./app-notification.routes.ts";
 import { authRoutes } from "./auth.routes.ts";
 import { calendarEventRoutes } from "./calendar-event.routes.ts";
 import { conversationRoutes } from "./conversation.routes.ts";
@@ -34,6 +35,7 @@ const routeModules: RouteModule[] = [
   { path: "/folders", router: folderRoutes },
   { path: "/documents", router: crmDocumentRoutes },
   { path: "/conversations", router: conversationRoutes },
+  { path: "/notifications", router: notificationRoutes },
 ];
 
 const router = Router();

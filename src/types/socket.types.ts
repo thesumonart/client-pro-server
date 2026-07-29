@@ -27,6 +27,8 @@ export interface SocketNotificationPayload {
   title: string;
   body: string;
   read: boolean;
+  actorId: string | null;
+  href: string | null;
   createdAt: Date;
 }
 

@@ -14,6 +14,7 @@ import type {
 import type { SocketMessagePayload } from "../types/socket.types.ts";
 import type { PaginationMeta } from "../utils/ApiResponse.ts";
 import { queryParser } from "../utils/query.utils.ts";
+import { notificationService } from "./app-notification.service.ts";
 import { conversationService } from "./conversation.service.ts";
 
 /** Response projection — mirrors the frontend's `ChatMessage` interface. */
@@ -96,12 +97,26 @@ export const chatMessageService = {
       payload,
     );
 
-    conversation.participants
+    const recipients = conversation.participants
       .map((participant) => participant.toString())
-      .filter((participantId) => participantId !== actor.id)
-      .forEach((participantId) => {
-        socketConfig.emitToUser(participantId, "message:new", payload);
-      });
+      .filter((participantId) => participantId !== actor.id);
+
+    recipients.forEach((participantId) => {
+      socketConfig.emitToUser(participantId, "message:new", payload);
+    });
+
+    // Raise a notification alongside the live push, so the message is still
+    // surfaced to a recipient who had no socket open at the time.
+    await notificationService.notifyMany(
+      recipients.map((recipientId) => ({
+        recipientId,
+        category: "message" as const,
+        title: `New message from ${actor.name}`,
+        body: body.length > 140 ? `${body.slice(0, 140)}…` : body,
+        actorId: actor.id,
+        href: `/messages?conversation=${conversation._id.toString()}`,
+      })),
+    );
 
     return payload;
   },
