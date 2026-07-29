@@ -10,6 +10,7 @@ import { dealRoutes } from "./deal.routes.ts";
 import { folderRoutes } from "./folder.routes.ts";
 import { leadRoutes } from "./lead.routes.ts";
 import { noteRoutes } from "./note.routes.ts";
+import { searchRoutes } from "./search.routes.ts";
 import { settingsRoutes } from "./settings.routes.ts";
 import { taskRoutes } from "./task.routes.ts";
 import { teamMemberRoutes } from "./team-member.routes.ts";
@@ -38,6 +39,7 @@ const routeModules: RouteModule[] = [
   { path: "/conversations", router: conversationRoutes },
   { path: "/notifications", router: notificationRoutes },
   { path: "/settings", router: settingsRoutes },
+  { path: "/search", router: searchRoutes },
 ];
 
 const router = Router();

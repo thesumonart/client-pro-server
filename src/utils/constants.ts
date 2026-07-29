@@ -131,6 +131,45 @@ export const NOTIFICATION_CATEGORIES = [
   "message",
 ] as const;
 
+/** Collections the command palette searches, in the order it renders them. */
+export const SEARCH_TYPES = [
+  "customer",
+  "lead",
+  "deal",
+  "task",
+  "document",
+  "team",
+] as const;
+
+/**
+ * Per-type result caps, matching the slice() limits the palette already
+ * applies client-side so the sections keep their current proportions.
+ */
+export const SEARCH_DEFAULT_LIMITS: Record<
+  (typeof SEARCH_TYPES)[number],
+  number
+> = {
+  customer: 5,
+  lead: 4,
+  deal: 4,
+  task: 4,
+  document: 3,
+  team: 3,
+};
+
+/** Section headings the palette groups results under. */
+export const SEARCH_GROUP_LABELS: Record<
+  (typeof SEARCH_TYPES)[number],
+  string
+> = {
+  customer: "Customers",
+  lead: "Leads",
+  deal: "Deals",
+  task: "Tasks",
+  document: "Documents",
+  team: "Team",
+};
+
 export const CUSTOMER_STATUSES = [
   "active",
   "inactive",
